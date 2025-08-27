@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;500;700&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>ECOWATT — Ingeniería ambiental aplicada</title>
+<meta name="description" content="ECOWATT: ingeniería ambiental sólida y eficiente aplicada al tratamiento de aguas, efluentes y aire. Presencia en Argentina, Uruguay, Paraguay y Bolivia.">
+
+<style>
+  :root{
+    --blue:#001489;
+    --green:#009A44;
+    --dark:#0f172a;
+    --text:#1b2533;
+    --white:#ffffff;
+    --radius:14px;
+    --gutter:20px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:'Bricolage Grotesque',system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;color:var(--text);background:var(--white);line-height:1.6}
+  a{color:var(--blue);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .container{max-width:1180px;margin:0 auto;padding:0 var(--gutter)}
+
+  /* ===== Header ===== */
+  header{position:sticky;top:0;z-index:40;background:rgba(255,255,255,.92);backdrop-filter:saturate(180%) blur(8px);border-bottom:1px solid #e5e7eb}
+  .nav{display:flex;align-items:center;padding:10px 0;gap:16px}
+  .brand{display:flex;align-items:center}
+  .brand img{height:42px;width:auto;display:block} /* +20% */
+  .nav-right{margin-left:auto;display:flex;align-items:center;gap:16px}
+  .nav-right nav ul{display:flex;gap:24px;list-style:none;margin:0;padding:0}
+  .nav-right nav a,.nav-link{font-weight:600;color:var(--dark)}
+  .btn{display:inline-flex;align-items:center;padding:8px 14px;border-radius:999px;font-weight:700;border:2px solid var(--blue);background:transparent;color:var(--blue);white-space:nowrap}
+  .btn.alt{background:transparent;color:var(--blue)}
+  /* Enlace con apariencia de nav para Descargas */
+  .btn.as-link{border:0;padding:0;background:none;color:var(--dark)}
+  .btn.as-link:hover{text-decoration:underline}
+  .btn.as-link::after{content:" ▾";font-weight:700}
+
+  /* === Dropdown Descargas === */
+  .dropdown{position:relative}
+  .dropdown-toggle[aria-expanded="true"]{outline:2px solid var(--blue);outline-offset:2px}
+  .dropdown-menu{
+    position:absolute;right:0;top:calc(100% + 8px);
+    min-width:260px;background:#fff;border:1px solid #e5e7eb;border-radius:12px;
+    box-shadow:0 10px 30px rgba(16,24,40,.12);padding:8px;display:none;
+  }
+  .dropdown[aria-expanded="true"] .dropdown-menu{display:block}
+  .dropdown-menu a{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:10px;color:var(--dark);gap:12px}
+  .dropdown-menu a:hover{background:#f3f4f6;text-decoration:none}
+  .dropdown-menu small{opacity:.75}
+
+  /* ===== Bandas ===== */
+  section.band-blue{background:var(--blue);color:#fff;padding:56px 0}
+  section.band-green{background:var(--green);color:#fff;padding:56px 0}
+  section.band-white{background:#fff;color:var(--text);padding:56px 0}
+  #galeria.band-blue{padding:36px 0} /* reducir altura banda galería */
+  h3.section-title{font-size:28px;margin:0 0 10px}
+  p.lead{opacity:.9;margin:0 0 22px}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;min-height:62vh;overflow:hidden}
+  .hero video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center center;display:block}
+  .hero-overlay{position:relative;min-height:inherit;display:flex;align-items:center;justify-content:flex-start;padding:36px 0}
+  .hero .hero-overlay>.container{width:100%;display:flex;justify-content:flex-start;align-items:center}
+  .hero-inner{max-width:540px;background:rgba(245,247,250,.88);border:1px solid rgba(0,0,0,.06);border-radius:24px;padding:22px;box-shadow:0 10px 30px rgba(16,24,40,.18);backdrop-filter:blur(2px);color:#0b2b4a;margin-left:0;margin-right:auto}
+  .hero h2{font-size:clamp(26px,4.2vw,40px);margin:0 0 10px;line-height:1.15;font-weight:700}
+  .hero p{font-size:16px;margin:0 0 18px;color:#3d4a5a}
+  .hero-ctas{display:flex;gap:12px;flex-wrap:wrap}
+  section{position:relative;z-index:0}
+
+  /* ===== Grids y tarjetas ===== */
+  .grid{display:grid;gap:18px}
+  @media(min-width:720px){.grid.cols-2{grid-template-columns:1fr 1fr}}
+  @media(min-width:960px){.grid.cols-3{grid-template-columns:repeat(3,1fr)}.grid.cols-4{grid-template-columns:repeat(4,1fr)}}
+  .card{background:#fff;border:1px solid #e5e7eb;border-radius:var(--radius);padding:18px;color:var(--text);display:flex;flex-direction:column}
+  .card h4{margin:0 0 8px}
+  .chip{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:999px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.35);color:#fff;font-weight:700;font-size:12px}
+  .chip img{height:36px;width:auto;display:inline-block}
+  .btn-wrap{margin-top:auto;display:flex;justify-content:flex-end}
+
+  /* ===== Step badge ===== */
+  .step-badge{display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;border-radius:50%;background:var(--green);color:#fff;font-weight:700;margin-bottom:10px;font-size:14px;box-shadow:0 1px 2px rgba(0,0,0,.08)}
+
+  /* ===== Logos partners ===== */
+  .partner-logos{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;gap:30px}
+  .partner-logos a{display:inline-flex;align-items:center;justify-content:center}
+  .partner-logos img{height:auto;width:auto;object-fit:contain;max-height:42px} /* ≤ alto logo Ecowatt */
+
+  /* ===== Galería ===== */
+  .gallery-main-wrap{
+    width:min(70%,378px);max-width:378px;aspect-ratio:1/1;margin:0 auto;border-radius:12px;overflow:hidden;
+    background:var(--blue);display:flex;align-items:center;justify-content:center
+  }
+  .gallery-main{width:100%;height:100%;display:block;object-fit:contain;object-position:center center}
+  .filmstrip{width:70%;margin:14px auto 0;display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;padding:6px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;background:#fff;border-radius:10px}
+  .filmstrip .thumb{flex:0 0 auto;height:76px;width:auto;aspect-ratio:4/3;object-fit:cover;border-radius:8px;cursor:pointer;scroll-snap-align:start;background:#eee;border:2px solid transparent}
+  .filmstrip .thumb.active{border-color:#0B3A82}
+  .gallery-controls{display:none;align-items:center;justify-content:space-between;gap:12px;width:min(70%,378px);max-width:378px;margin:10px auto 0}
+  .gallery-controls button{background:#fff;border:1px solid #e5e7eb;border-radius:12px;padding:8px 14px;font-weight:700;color:var(--dark);cursor:pointer}
+
+  /* ===== Modal (saber más…) ===== */
+  dialog.modal{border:0;border-radius:16px;max-width:760px;width:92%;padding:0;box-shadow:0 20px 60px rgba(16,24,40,.25)}
+  dialog::backdrop{background-color:rgba(2,6,23,.55)}
+  .modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid #e5e7eb}
+  .modal-title{margin:0;font-size:20px;color:var(--blue);font-weight:800;display:flex;align-items:center;gap:10px}
+  .modal-body{padding:18px}
+  .modal-close{background:none;border:0;font-size:24px;line-height:1;cursor:pointer;color:#475569}
+
+  /* ===== Colores Soluciones y tecnologías (solo CSS) ===== */
+  #soluciones .card h4:first-of-type{color:var(--blue)}
+  #soluciones .card h4:not(:first-of-type){color:var(--green)}
+
+  /* ===== Responsivo ===== */
+  @media(max-width:900px){ .nav-right nav ul{gap:18px} }
+  @media(max-width:720px){
+    .brand img{height:38px} /* +20% sobre 32px */
+    .nav{flex-wrap:wrap}
+    .nav-right{width:100%;justify-content:flex-end;gap:12px}
+    .nav-right nav ul{flex-wrap:wrap;justify-content:flex-end;gap:16px}
+    .hero{min-height:68vh}
+    .hero-overlay{padding:28px 0}
+    .hero-inner{max-width:520px;padding:18px;border-radius:18px}
+  }
+  @media(max-width:576px){
+    .filmstrip{display:none}
+    .gallery-controls{display:flex}
+  }
+  @media(max-width:520px){
+    .hero{min-height:74vh}
+    .hero h2{font-size:clamp(22px,5.6vw,28px)}
+    .hero p{font-size:15px}
+    .btn{padding:7px 12px}
+  }
+  @media(max-width:380px){
+    .hero{min-height:82vh}
+    .hero h2{font-size:clamp(20px,6vw,24px)}
+    .hero-inner{padding:14px}
+    .hero-ctas{gap:8px}
+  }
+
+  .band-white .card h4{color:var(--blue)}
+  .band-white .card p strong{color:var(--green)}
+</style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <div class="brand">
+      <a href="#inicio"><img src="assets/logos/ecowatt.png" alt="ECOWATT logo"></a>
+    </div>
+    <div class="nav-right">
+      <nav>
+        <ul>
+          <li><a href="#soluciones">Soluciones</a></li>
+          <li><a href="#quienes">Quiénes somos</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+        </ul>
+      </nav>
+
+      <!-- Descargas dropdown (accesible) – estilo de nav link -->
+      <div class="dropdown" aria-expanded="false">
+        <button id="downloadsBtn" class="btn as-link dropdown-toggle nav-link" aria-haspopup="true" aria-expanded="false" aria-controls="downloadsMenu" type="button">
+          Descargas
+        </button>
+        <div id="downloadsMenu" class="dropdown-menu" role="menu" aria-labelledby="downloadsBtn">
+          <a href="Ecowatt_general.pdf" role="menuitem"><span>Nuestros productos</span><small>Ecowatt_general.pdf</small></a>
+          <a href="https://www.fuchswater.com/es/descarga/" role="menuitem"><span>Fuchs</span><small>fuchswater.com</small></a>
+          <a href="2G_catalogo.pdf" role="menuitem"><span>2G</span><small>2G_catalogo.pdf</small></a>
+          <a href="https://dagaequipment.com/es/c/productos-23" role="menuitem"><span>DAGA</span><small>dagaequipment.com</small></a>
+          <a href="https://aircleansrl.com/wp-content/uploads/2024/03/AirClean_Brochure_Espanol.pdf" role="menuitem"><span>Airclean</span><small>aircleansrl.com</small></a>
+        </div>
+      </div>
+
+      <a href="#contacto" class="btn">Consultar</a>
+    </div>
+  </div>
+</header>
+
+<section id="inicio" class="hero">
+  <video autoplay loop muted playsinline poster="assets/img/hero/hero-ecowatt.jpg">
+    <source src="assets/videos/hero.mp4" type="video/mp4"/>
+  </video>
+  <div class="hero-overlay">
+    <div class="container">
+      <div class="hero-inner">
+        <h2>Ingeniería ambiental sólida y eficiente aplicada al tratamiento de aguas, efluentes y aire</h2>
+        <p>Somos ECOWATT, una empresa de ingeniería interdisciplinaria que diseña y provee sistemas de tratamiento de aguas, efluentes y aire.</p>
+        <div class="hero-ctas">
+          <a class="btn" style="background:var(--green);border-color:var(--green);color:#fff" href="#soluciones">Ver soluciones</a>
+          <a class="btn" href="#quienes">Conocenos</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band-blue" id="quienes">
+  <div class="container">
+    <h3 class="section-title">Quiénes somos</h3>
+    <div class="grid cols-2">
+      <div class="card">
+        <p>Somos ECOWATT, un equipo interdisciplinario con formaciones en distintas áreas y una fuerte orientación hacia soluciones en ingeniería hidráulica, química, mecánica, civil, ambiental, eléctrica e instrumentación.</p>
+        <p><strong>Nos distinguimos por:</strong></p>
+        <ul>
+          <li>Diseños a medida para cada necesidad, desde urbanizaciones hasta procesos industriales complejos.</li>
+          <li>Eficiencia y confiabilidad en cada proyecto, minimizando mantenimiento y optimizando recursos.</li>
+          <li>Respaldo internacional, con tecnología de empresas líderes en Europa y América.</li>
+          <li>Orientación al cliente, acompañando desde la ingeniería conceptual hasta la implementación final.</li>
+        </ul>
+        <p style="letter-spacing:.35em;text-transform:uppercase;opacity:.9"><small></small></p>
+      </div>
+      <div class="card">
+        <h4>¿Por qué ECOWATT?</h4>
+        <div class="excerpt"><p>Ingeniería aplicada, tecnologías probadas y soporte local. Acompañamos de punta a punta: ingeniería conceptual, detalle, provisión, montaje y puesta en marcha.</p></div>
+        <p><a class="btn" href="#contacto" style="background:var(--blue);border-color:var(--blue);color:#fff">Iniciar consulta técnica</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band-white" id="proceso">
+  <div class="container">
+    <h3 class="section-title">Proceso de trabajo</h3>
+    <p class="lead">Metodología ingenieril adaptable. Siempre buscamos <strong>reducir contaminantes en origen</strong> y <strong>optimizar procesos</strong> para minimizar inversiones y OPEX.</p>
+    <div class="grid cols-4">
+      <div class="card"><span class="step-badge">1</span><h4>Diagnóstico de situación</h4><div class="excerpt"><p>Relevamiento técnico de caudales, cargas, procesos y normativa. Oportunidades de mejora en origen.</p></div></div>
+      <div class="card"><span class="step-badge">2</span><h4>Ingeniería de procesos</h4><div class="excerpt"><p>Balances de masa/energía, simulaciones, dimensionamiento y selección tecnológica óptima.</p></div></div>
+      <div class="card"><span class="step-badge">3</span><h4>Implementación</h4><div class="excerpt"><p>Provisión de equipos, integración a plantas existentes o construcción de nuevas unidades y puesta en marcha.</p></div></div>
+      <div class="card"><span class="step-badge">4</span><h4>Seguimiento y optimización</h4><div class="excerpt"><p>Capacitación, monitoreo y soporte para mantener eficiencia y adaptarse a nuevas exigencias.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="band-green" id="soluciones">
+  <div class="container">
+    <h3 class="section-title">Soluciones y tecnologías</h3>
+    <p class="lead">Seleccioná un área para explorar tecnologías y casos de implementación.</p>
+    <div class="grid cols-4">
+
+      <!-- AGUAS -->
+      <div class="card">
+        <span class="chip"><img src="assets/icons/gota-blue (2).svg" alt=""> Aguas</span>
+        <h4>Tratamiento de Aguas</h4>
+        <div class="excerpt"><p>Para municipios e industrias: seleccionamos la mejor línea de proceso (convencional o avanzada) y la integramos con automatización, capacitación y O&amp;M asistido.</p></div>
+        <div class="btn-wrap">
+          <button class="btn alt saber-mas" type="button" aria-haspopup="dialog" data-modal-title="TRATAMIENTO DE AGUAS">saber más…</button>
+        </div>
+        <!-- Contenido original previo (para modal) -->
+        <div class="modal-template" hidden>
+          <div class="modal-body-inner">
+            <p>Potabilización y acondicionamiento de agua para uso urbano e industrial. Implementamos sistemas de tratamiento convencional cribado, coagulación, floculación, sedimentación y filtración y procesos avanzados mediante membranas, intercambio iónico (incluida la electrodeionización) y otras tecnologías complementarias, según la calidad de fuente y los objetivos del cliente.</p>
+            <p>Además, proveemos los equipos y unidades de proceso, con ingeniería, montaje y soporte local.</p>
+            <h4>Suministro de equipos y unidades</h4>
+            <div class="excerpt"><p>Integramos y proveemos: sistemas de cribado y manejo de residuos; floculadores y clarificadores (incl. módulos/paquetes lamelares de perfil chevron); rasquetas/puentes de lodos; unidades de filtración por disco y por tambor; filtros de arena (convencionales y de operación continua) y microfiltros; además de instrumentación y automatización asociada. Opcional paquetes modulares “plug &amp; play” cuando corresponde.</p></div>
+            <h4>Valor agregado</h4>
+            <ul>
+              <li>Innovación y eficiencia técnica: selección entre líneas convencionales y avanzadas para lograr la calidad objetivo con alta confiabilidad operativa.</li>
+              <li>Flexibilidad: soluciones compactas y paquetes preensamblados ideales para ampliaciones o nuevas plantas.</li>
+              <li>Soporte integral: ingeniería de proceso, suministro, montaje, puesta en marcha, capacitación y O&amp;M asistido.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- EFLUENTES -->
+      <div class="card">
+        <span class="chip"><img src="assets/icons/cloaca-blue (2).svg" alt=""> Efluentes urbanos e industriales</span>
+        <h4>Tratamiento de efluentes industriales y urbanos</h4>
+        <div class="excerpt"><p>Equipos y soluciones robustas y eficientes, para adecuar tus efluentes a los estándares de vuelco.</p></div>
+        <div class="btn-wrap">
+          <button class="btn alt saber-mas" type="button" aria-haspopup="dialog" data-modal-title="TRATAMIENTO DE EFLUENTES">saber más…</button>
+        </div>
+        <!-- Contenido original previo (para modal) -->
+        <div class="modal-template" hidden>
+          <div class="modal-body-inner">
+            <div class="excerpt"><p>Soluciones integrales para efluentes municipales/domésticos e industriales, combinando trenes de pretratamiento, procesos biológicos (aeróbicos y anaeróbicos), polimento con filtración biológica, tratamientos terciarios y opciones de reúso del agua tratada.</p></div>
+            <p>Cuando corresponde, integramos aprovechamiento energético mediante biogás y esquemas de minimización de descarga (incl. ZLD), asegurando cumplimiento normativo y eficiencia operativa.</p>
+            <h4>Efluentes urbanos</h4>
+            <div class="excerpt"><p>Soluciones para municipios, desarrollos urbanísticos y corrientes domésticas en industrias.</p></div>
+            <p>Procesos aplicados: barros activados, MBR, MBBR, lechos percoladores, IFAS, UASB, lagunas anaeróbicas, terciarios y desinfección.</p>
+            <p>Reúso y polimento biológico: incorporación de filtración biológica de pulido (p. ej., BAC/biocarbón, percolación de polimento) y etapas de membranas cuando se requiere calidad para riego, servicios, recirculación u otros usos permitidos.</p>
+            <p>Integración de servicios y equipos: pretratamiento robusto (rejas/tamises, desarenado/desengrasado), aireación y mezcla de bajo mantenimiento, monitoreo y soporte técnico.</p>
+            <p>Enfoque: cumplimiento normativo, eficiencia operativa y reducción de CAPEX/OPEX.</p>
+            <h4><img src="assets/icons/fabrica-blue (2).svg" alt="Ícono fábrica – Efluentes industriales" style="height:36px;width:auto;display:inline-block"> Efluentes industriales y generación de biogás</h4>
+            <div class="excerpt"><p>Tratamiento físico–químico y biológico para adecuación de vuelcos en múltiples rubros (alimentos y bebidas, agroindustria, químico/farmacéutico, petróleo y gas, entre otros).</p></div>
+            <h4>Tecnologías clave</h4>
+            <ul>
+              <li>Anaeróbicas de alta tasa para conversión de carga orgánica en biogás.</li>
+              <li>Etapas aeróbicas (MBBR, barros activados, IFAS) para remoción de DBO/DQO y nitrificación–desnitrificación.</li>
+              <li>Polimento y reúso: filtración biológica de pulido, carbón activado/biocarbón, terciarios avanzados y membranas (UF/RO) orientados a reúso o ZLD, según objetivo del cliente.</li>
+            </ul>
+            <p>Servicios profesionales: ingeniería de proceso, pilotos y pruebas de tratabilidad, laboratorio, auditorías de performance, operación y mantenimiento asistido.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- AIRE Y GASES -->
+      <div class="card">
+        <span class="chip"><img src="assets/icons/aire-blue (2).svg" alt=""> Aire y gases</span>
+        <h4>Tratamiento de aire y gases</h4>
+        <div class="excerpt"><p>Soluciones llave en mano para depuración de aire y control de olores en entornos urbanos e industriales. También depuración de biogás (H₂S y siloxanos).</p></div>
+        <div class="btn-wrap">
+          <button class="btn alt saber-mas" type="button" aria-haspopup="dialog" data-modal-title="🛠️ Tratamiento de aire y gases">saber más…</button>
+        </div>
+        <!-- Contenido original previo (para modal) -->
+        <div class="modal-template" hidden>
+          <div class="modal-body-inner">
+            <ul>
+              <li>Tecnologías: biofiltración y biotrickling, lavadores (scrubbers), adsorción con carbón activado, captación/abatimiento de polvos, ventilación industrial e insonorización.</li>
+              <li>Servicios: ingeniería, consultoría, diseño, fabricación e instalación llave en mano; integración de pretratamiento de biogás para maximizar la eficiencia de valorización energética.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- TECNOLOGÍAS (antes Equipamiento) -->
+      <div class="card">
+        <span class="chip"><img src="assets/icons/agitador-blue (2).svg" alt=""> Equipamiento</span>
+        <h4>Tecnologías</h4>
+        <div class="excerpt"><p>Equipos y repuestos con ingeniería y soporte local para tratamiento de agua, efluentes y aire: robustez y eficiencia que se notan en la operación.</p></div>
+        <div class="btn-wrap">
+          <button class="btn alt saber-mas" type="button" aria-haspopup="dialog" data-modal-title="🔧 Tecnologías robustas, confiables y eficientes">saber más…</button>
+        </div>
+        <!-- Contenido original previo (para modal) + línea extra -->
+        <div class="modal-template" hidden>
+          <div class="modal-body-inner">
+            <ul>
+              <li>Pretratamiento y separación sólido–líquido: rejas/tamises, tambores, desarenadores/desengrasadores, transporte y compactación.</li>
+              <li>Clarificación/Decantación: módulos lamelares (seditubos) de perfil chevron y componentes para decantadores/clarificadores.</li>
+              <li>Procesos biológicos (reactores y lagunas): aireación y mezcla de alta eficiencia y bajo mantenimiento (selección según matriz y carga).</li>
+              <li>Aire y gases: biofiltros, biotrickling, scrubbers, adsorción con carbón activado, ventilación e insonorización.</li>
+              <li>Servicios asociados: ingeniería, suministro, instalación, pilotos, laboratorio, auditorías y asistencia tecnológica; operación y mantenimiento según necesidad. Nota: los detalles de filtración biológica de agua y reúso se desarrollan en la sección Efluentes.</li>
+            </ul>
+            <p><strong>¡Conozca a nuestros aliados estratégicos de referencia internacional!</strong></p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section class="band-white" id="partners">
+  <div class="container">
+    <h3 class="section-title">Partners internacionales</h3>
+    <p class="lead">Alianzas estratégicas con empresas líderes.</p>
+    <div class="partner-logos">
+      <a href="https://www.fuchswater.com" target="_blank" rel="noopener"><img alt="Fuchs" src="assets/logos/partners/fuchs.png"></a>
+      <a href="https://www.2gservicos.com" target="_blank" rel="noopener"><img alt="2G Ingeniería y Servicios" src="assets/logos/partners/2g.png"></a>
+      <a href="https://aqana.com" target="_blank" rel="noopener"><img alt="Aqana" src="assets/logos/partners/aqana.png"></a>
+      <a href="https://dagaequipment.com" target="_blank" rel="noopener"><img alt="DAGA" src="assets/logos/partners/daga.png"></a>
+      <a href="https://aircleansrl.com" target="_blank" rel="noopener"><img alt="AirClean" src="assets/logos/partners/airclean.png"></a>
+    </div>
+  </div>
+</section>
+
+<section class="band-blue" id="galeria">
+  <div class="container">
+    <h3 class="section-title">Galería</h3>
+    <div class="card" style="background:#0a1f8f14;border:none;padding:20px">
+      <div class="gallery-main-wrap">
+        <img id="gallery-main" src="assets/gallery/group1/img1.jpg" alt="Galería" class="gallery-main"/>
+      </div>
+
+      <!-- Controles móviles -->
+      <div class="gallery-controls" aria-hidden="true">
+        <button type="button" class="gal-prev" aria-label="Imagen anterior">‹</button>
+        <button type="button" class="gal-next" aria-label="Imagen siguiente">›</button>
+      </div>
+
+      <div class="filmstrip" tabindex="0" aria-label="Miniaturas de galería (scroll horizontal)">
+        <img src="assets/gallery/group1/img1.jpg" data-full="assets/gallery/group1/img1.jpg" alt="g1-1" class="thumb"/>
+        <img src="assets/gallery/group1/img2.jpg" data-full="assets/gallery/group1/img2.jpg" alt="g1-2" class="thumb"/>
+        <img src="assets/gallery/group1/img3.jpg" data-full="assets/gallery/group1/img3.jpg" alt="g1-3" class="thumb"/>
+        <img src="assets/gallery/group1/img4.jpg" data-full="assets/gallery/group1/img4.jpg" alt="g1-4" class="thumb"/>
+        <img src="assets/gallery/group1/img5.jpg" data-full="assets/gallery/group1/img5.jpg" alt="g1-5" class="thumb"/>
+        <img src="assets/gallery/group1/img6.jpg" data-full="assets/gallery/group1/img6.jpg" alt="g1-6" class="thumb"/>
+        <img src="assets/gallery/group2/img1.jpg" data-full="assets/gallery/group2/img1.jpg" alt="g2-1" class="thumb"/>
+        <img src="assets/gallery/group2/img2.jpg" data-full="assets/gallery/group2/img2.jpg" alt="g2-2" class="thumb"/>
+        <img src="assets/gallery/group2/img3.jpg" data-full="assets/gallery/group2/img3.jpg" alt="g2-3" class="thumb"/>
+        <img src="assets/gallery/group2/img4.jpg" data-full="assets/gallery/group2/img4.jpg" alt="g2-4" class="thumb"/>
+        <img src="assets/gallery/group2/img5.jpg" data-full="assets/gallery/group2/img5.jpg" alt="g2-5" class="thumb"/>
+        <img src="assets/gallery/group2/img6.jpg" data-full="assets/gallery/group2/img6.jpg" alt="g2-6" class="thumb"/>
+        <img src="assets/gallery/group3/img1.jpg" data-full="assets/gallery/group3/img1.jpg" alt="g3-1" class="thumb"/>
+        <img src="assets/gallery/group3/img2.jpg" data-full="assets/gallery/group3/img2.jpg" alt="g3-2" class="thumb"/>
+        <img src="assets/gallery/group3/img3.jpg" data-full="assets/gallery/group3/img3.jpg" alt="g3-3" class="thumb"/>
+        <img src="assets/gallery/group3/img4.jpg" data-full="assets/gallery/group3/img4.jpg" alt="g3-4" class="thumb"/>
+        <img src="assets/gallery/group3/img5.jpg" data-full="assets/gallery/group3/img5.jpg" alt="g3-5" class="thumb"/>
+        <img src="assets/gallery/group3/img6.jpg" data-full="assets/gallery/group3/img6.jpg" alt="g3-6" class="thumb"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="band-white" id="contacto">
+  <div class="container">
+    <h3 class="section-title">Contacto</h3>
+    <p class="lead">Contanos sobre tu proyecto: caudal, tipo de efluente, objetivo de calidad, plazos y ubicación.</p>
+
+    <div class="grid cols-2">
+      <!-- Datos de contacto (columna izquierda) -->
+      <div class="card">
+        <h4>Datos de contacto</h4>
+        <div class="excerpt"><p>Dirección: Av. Hipólito Yrigoyen 986, CABA</p></div>
+        <p>Teléfonos: +54 911 6047 0663 | +54 9 387 217 8227</p>
+        <p>Email: <a href="mailto:ingenieria@ecowatt.com.ar">ingenieria@ecowatt.com.ar</a></p>
+        <p>Operamos en Argentina, Uruguay, Paraguay y Bolivia.</p>
+        <p><small>© ECOWATT. Todos los derechos reservados.</small></p>
+      </div>
+
+      <!-- Formulario (columna derecha) -->
+      <form class="card" onsubmit="event.preventDefault(); alert('Gracias. Te responderemos a la brevedad.');">
+        <label>Nombre y empresa<br><input type="text" required style="width:100%;padding:10px;border:1px solid #d1d5db;border-radius:10px"></label><br><br>
+        <label>Email<br><input type="email" required style="width:100%;padding:10px;border:1px solid #d1d5db;border-radius:10px"></label><br><br>
+        <label>Mensaje<br><textarea rows="6" required style="width:100%;padding:10px;border:1px solid #d1d5db;border-radius:10px"></textarea></label><br><br>
+        <button type="submit" class="btn" style="background:var(--green);border-color:var(--green);color:#fff">Enviar consulta</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer><div class="container"><p>ECOWATT - Ingeniería ambiental aplicada</p></div></footer>
+
+<!-- Modal único reutilizable -->
+<dialog class="modal" id="infoModal" aria-modal="true">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modalTitle">Título</h4>
+    <button class="modal-close" aria-label="Cerrar">×</button>
+  </div>
+  <div class="modal-body" id="modalBody"></div>
+</dialog>
+
+<script>
+  // Dropdown "Descargas" accesible (click, Esc, click afuera)
+  (function(){
+    const dd = document.querySelector('.dropdown');
+    if(!dd) return;
+    const btn = dd.querySelector('.dropdown-toggle');
+    const menu = dd.querySelector('.dropdown-menu');
+
+    function closeMenu(){
+      dd.setAttribute('aria-expanded','false');
+      btn.setAttribute('aria-expanded','false');
+    }
+    function openMenu(){
+      dd.setAttribute('aria-expanded','true');
+      btn.setAttribute('aria-expanded','true');
+      // Enfoca primer item al abrir con teclado
+      const first = menu.querySelector('a');
+      if(first) first.focus();
+    }
+
+    btn.addEventListener('click', function(){
+      const expanded = dd.getAttribute('aria-expanded') === 'true';
+      expanded ? closeMenu() : openMenu();
+    });
+
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape') closeMenu();
+    });
+
+    document.addEventListener('click', function(e){
+      if(!dd.contains(e.target)) closeMenu();
+    });
+  })();
+
+  // Asegurar que el hero no invada la banda siguiente ajustando min-height según contenido
+  (function(){
+    const hero = document.querySelector('.hero');
+    const overlay = document.querySelector('.hero-overlay');
+    function adjustHero(){
+      if(!hero || !overlay) return;
+      const contentHeight = overlay.getBoundingClientRect().height;
+      const min = Math.max(window.innerHeight*0.62, contentHeight + 32); // 32px colchón
+      hero.style.minHeight = Math.ceil(min) + 'px';
+    }
+    window.addEventListener('load', adjustHero);
+    window.addEventListener('resize', adjustHero);
+  })();
+
+  // Galería: click en miniatura => imagen principal
+  (function(){
+    const main = document.getElementById('gallery-main');
+    const thumbs = Array.from(document.querySelectorAll('.filmstrip .thumb'));
+    if(!main || !thumbs.length) return;
+    // Estado
+    let currentIndex = 0;
+
+    function setMainByIndex(i){
+      if(i<0) i = thumbs.length-1;
+      if(i>=thumbs.length) i = 0;
+      currentIndex = i;
+      const t = thumbs[i];
+      main.src = t.getAttribute('data-full');
+      thumbs.forEach(im=>im.classList.remove('active'));
+      t.classList.add('active');
+    }
+
+    document.addEventListener('click', function(e){
+      if(e.target && e.target.matches('.filmstrip .thumb')){
+        const idx = thumbs.indexOf(e.target);
+        if(idx>-1) setMainByIndex(idx);
+      }
+    });
+
+    const prev = document.querySelector('.gal-prev');
+    const next = document.querySelector('.gal-next');
+    if(prev && next){
+      prev.addEventListener('click', ()=>setMainByIndex(currentIndex-1));
+      next.addEventListener('click', ()=>setMainByIndex(currentIndex+1));
+    }
+
+    // Inicial
+    setMainByIndex(0);
+  })();
+
+  // Modal "saber más…"
+  (function(){
+    const modal = document.getElementById('infoModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+    const closeBtn = modal.querySelector('.modal-close');
+
+    function openModal(title, html){
+      modalTitle.textContent = '';
+      modalTitle.innerHTML = title; // permite íconos/emoji en el título cuando corresponde
+      modalBody.innerHTML = html;
+      if(typeof modal.showModal === 'function'){
+        modal.showModal();
+      }else{
+        // fallback básico
+        modal.setAttribute('open','');
+      }
+    }
+    function closeModal(){
+      if(typeof modal.close === 'function') modal.close();
+      else modal.removeAttribute('open');
+    }
+
+    document.addEventListener('click', function(e){
+      const btn = e.target.closest('.saber-mas');
+      if(!btn) return;
+      const card = btn.closest('.card');
+      const tpl = card && card.querySelector('.modal-template .modal-body-inner');
+      const title = btn.getAttribute('data-modal-title') || 'Detalle';
+      if(tpl){ openModal(title, tpl.innerHTML); }
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('close', ()=>{ /* noop */ });
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && modal.hasAttribute('open')) closeModal();
+    });
+  })();
+</script>
+</body>
+</html>
